@@ -12,7 +12,7 @@ public class RestController {
 
     @GetMapping(value = "/hello")
     public String hello() {
-        log.info(" *** RESULT *** ");
+        log.info(" *** RESULT *** Hello");
         return "SUCCESS!";
     }
 }
