@@ -14,9 +14,9 @@ services:
     depends_on:
       - stub1
     pull_policy: never
+    hostname: stub2
     networks:
       - stubs_network
-    hostname: stub2
 
   balancer:
     image: nginx:latest
@@ -27,7 +27,8 @@ services:
       - "80:80" # map internal port 80 to external port 80
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf # use custom nginx config
-    hostname: nginx-balancer
+    hostname: nginx
+    container_name: nginx
     networks:
       - stubs_network
       - external_network
@@ -36,13 +37,9 @@ services:
     image: grafana/grafana-enterprise
     container_name: grafana
     restart: always
-    depends_on:
-      - influxdb
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-    links:
-      - influxdb
     ports:
       - '3000:3000'  # Expose Grafana on port 3000
     volumes:
@@ -50,29 +47,33 @@ services:
     hostname: grafana
     networks:
       - external_network
+      - grafana_prometheus_network
 
-
-  influxdb:
-    image: influxdb:1.8-alpine
-    container_name: influxdb
-    restart: always
-    environment:
-      - INFLUXDB_DB=influx
-      - INFLUXDB_ADMIN_USER=admin
-      - INFLUXDB_ADMIN_PASSWORD=admin
-    ports:
-      - '8086:8086'  # Expose InfluxDB on port 8086
+  prometheus:
+    image: prom/prometheus:v2.36.2
     volumes:
-      - influxdb_data:/var/lib/influxdb  # Mount the InfluxDB data directory
-    hostname: influxdb
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    restart: always
     networks:
-      - external_network
+      - grafana_prometheus_network
+      - stubs_network
+    hostname: prometheus
+    container_name: prometheus
 
 volumes:
   grafana_data: {}  # Volume for Grafana data
-  influxdb_data: {}  # Volume for InfluxDB data
+  prometheus_data: {}
 
 networks:
   stubs_network:
   external_network:
     driver: bridge
+  grafana_prometheus_network:
