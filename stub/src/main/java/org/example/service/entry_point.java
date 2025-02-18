@@ -15,9 +15,14 @@ public class entry_point {
 
     public static void main(String[] args) {
 
+        System.out.println("JAVA ARGS:::");
+
         for(String arg:args) {
             System.out.println(arg);
         }
+
+        System.out.println(":::JAVA ARGS");
+
 
         SpringApplication.run(entry_point.class, args);
     }

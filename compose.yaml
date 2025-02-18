@@ -1,9 +1,13 @@
 services:
 
   stub1:
-    build: .
+    build:
+      context: .
+      args:
+        response: 1000
     image: stub_image
     container_name: stub1
+
     hostname: stub1
     networks:
       - stubs_network

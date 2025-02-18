@@ -18,8 +18,9 @@ public class RestController {
 
     @GetMapping(value = "/hello")
     public String hello() throws InterruptedException {
+        log.info(" *** REST *** GET received, begin wait for:" + custom_response.toString() + " ms" );
         Thread.sleep(custom_response);
-        log.info(" *** RESULT *** Hello  *** " + custom_response.toString());
+        log.info(" *** REST *** GET answer, return answer");
         return "SUCCESS!";
     }
 }
