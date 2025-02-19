@@ -1,3 +1,6 @@
+**least_conn VS basic balancer sample**
+![screenshot](sample.png)
+
 **_Стек_**\
 docker-compose, dockerfile, prometheus, grafana, spring-boot, nginx
 

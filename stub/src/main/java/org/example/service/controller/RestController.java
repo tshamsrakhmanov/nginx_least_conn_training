@@ -12,11 +12,11 @@ public class RestController {
     private final Logger log = LoggerFactory.getLogger(RestController.class);
 
     @Value("${custom.response}")
-    private Integer custom_response;
+    Integer custom_response;
 
     @GetMapping(value = "/hello")
     public String hello() throws InterruptedException {
-        log.info(" *** REST *** GET received, begin wait for:" + custom_response.toString() + " ms" );
+        log.info(" *** REST *** GET received, begin wait for:{} ms", custom_response.toString());
         Thread.sleep(custom_response);
         log.info(" *** REST *** GET answer, return answer");
         return "SUCCESS!";
