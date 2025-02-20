@@ -25,7 +25,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "bedej9kn0q9s0f"
+        "uid": "cedlu4p1t0irkc"
       },
       "fieldConfig": {
         "defaults": {
@@ -83,7 +83,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
+        "h": 7,
         "w": 12,
         "x": 0,
         "y": 0
@@ -129,7 +129,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "bedej9kn0q9s0f"
+        "uid": "cedlu4p1t0irkc"
       },
       "fieldConfig": {
         "defaults": {
@@ -187,7 +187,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
+        "h": 7,
         "w": 12,
         "x": 12,
         "y": 0
@@ -237,7 +237,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "bedej9kn0q9s0f"
+        "uid": "cedlu4p1t0irkc"
       },
       "fieldConfig": {
         "defaults": {
@@ -295,10 +295,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 7,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 7
       },
       "id": 4,
       "options": {
@@ -334,7 +334,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "bedej9kn0q9s0f"
+        "uid": "cedlu4p1t0irkc"
       },
       "fieldConfig": {
         "defaults": {
@@ -359,6 +359,9 @@
             },
             "insertNulls": false,
             "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -381,21 +384,56 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "FAIL"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 43
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "PASS"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 30
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 9,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 11
+        "y": 7
       },
       "id": 5,
       "options": {
@@ -420,7 +458,7 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "interval": "",
-          "legendFormat": "__auto",
+          "legendFormat": "{{requestStatus}}",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -445,6 +483,6 @@
   "timezone": "browser",
   "title": "1",
   "uid": "aedelkw18nabkc",
-  "version": 13,
+  "version": 1,
   "weekStart": ""
 }

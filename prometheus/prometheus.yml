@@ -52,6 +52,8 @@ scrape_configs:
   - job_name: 'jmeter'
 
     static_configs:
-      - targets: [ 'host.docker.internal:9001' ]
+      - targets: [ 'laptop_timur_sh:9001' ]
+#        will work in some other cases...
+#        host.docker.internal:9001
 
     metrics_path: '/metrics'
