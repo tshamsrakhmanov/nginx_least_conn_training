@@ -3,7 +3,7 @@ services:
   stub1:
     build: .
     environment:
-      delay: 500
+      delay: 100
     image: stub_image
     container_name: stub1
 
@@ -18,7 +18,7 @@ services:
       - stub1
     pull_policy: never
     environment:
-      delay: 500
+      delay: 100
     hostname: stub2
     networks:
       - stubs_network
@@ -31,7 +31,7 @@ services:
       - stub2
     pull_policy: never
     environment:
-      delay: 5000
+      delay: 800
     hostname: stub3
     networks:
       - stubs_network
@@ -41,6 +41,7 @@ services:
     depends_on:
       - stub1
       - stub2
+      - stub3
     ports:
       - "80:80" # map internal port 80 to external port 80
     volumes:
@@ -60,6 +61,10 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     ports:
       - '3000:3000'  # Expose Grafana on port 3000
+    depends_on:
+      - stub1
+      - stub2
+      - stub3
     volumes:
       - grafana_data:/var/lib/grafana  # Mount the Grafana data directory
     hostname: grafana
@@ -72,6 +77,10 @@ services:
     volumes:
       - ./prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
+    depends_on:
+      - stub1
+      - stub2
+      - stub3
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'

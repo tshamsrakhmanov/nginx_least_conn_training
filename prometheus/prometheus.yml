@@ -48,3 +48,10 @@ scrape_configs:
       - targets: [ 'stub3:1234' ]
 
     metrics_path: '/actuator/prometheus'
+
+  - job_name: 'jmeter'
+
+    static_configs:
+      - targets: [ 'host.docker.internal:9001' ]
+
+    metrics_path: '/metrics'
